@@ -24,7 +24,7 @@ public class Presenter {
       if (choice >= 1 && choice <= 4) {
         performOperation(choice);
       } else {
-        view.showMessage("Invalid choice");
+        view.showMessage("Invalid choice. Please enter a number between 1 and 5.");
       }
     } while (true);
   }
@@ -33,30 +33,44 @@ public class Presenter {
     int num1 = getInput("Enter first number: ");
     int num2 = getInput("Enter second number: ");
 
-    int result = switch (choice) {
-      case 1 -> calculator.add(num1, num2);
-      case 2 -> calculator.subtract(num1, num2);
-      case 3 -> calculator.multiply(num1, num2);
-      case 4 -> calculator.divide(num1, num2);
-      default -> 0; // No debería ocurrir
-    };
-
-    view.showMessage("Result: " + result);
+    try {
+      int result = switch (choice) {
+        case 1 -> calculator.add(num1, num2);
+        case 2 -> calculator.subtract(num1, num2);
+        case 3 -> calculator.multiply(num1, num2);
+        case 4 -> {
+          if (num2 == 0) {
+            view.showMessage("Error: Division by zero is not allowed.");
+            yield 0;
+          }
+          yield calculator.divide(num1, num2);
+        }
+        default -> 0;
+      };
+      view.showMessage("Result: " + result);
+    } catch (Exception e) {
+      view.showMessage("An error occurred: " + e.getMessage());
+    }
   }
 
   private int getInput(String message) {
-    view.showMessage(message);
-    return Integer.parseInt(view.readInput());
+    while (true) {
+      try {
+        view.showMessage(message);
+        return Integer.parseInt(view.readInput());
+      } catch (NumberFormatException e) {
+        view.showMessage("Invalid input. Please enter a valid integer.");
+      }
+    }
   }
 
   private int showMenu() {
     view.showMessage("Menu:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Exit");
-    return Integer.parseInt(view.readInput());
+    return getInput("Choose an option: ");
   }
 
   public static void main(String[] args) {
     Presenter presenter = new Presenter();
     presenter.run();
   }
-
 }
