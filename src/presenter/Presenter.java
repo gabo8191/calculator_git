@@ -36,7 +36,7 @@ public class Presenter {
     int result = switch (choice) {
       case 1 -> calculator.add(num1, num2);
       case 2 -> calculator.subtract(num1, num2);
-      // case 3 -> calculator.multiply(num1, num2);
+      case 3 -> calculator.multiply(num1, num2);
       // case 4 -> calculator.divide(num1, num2);
       default -> 0; // No debería ocurrir
     };
