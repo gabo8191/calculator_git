@@ -13,45 +13,45 @@ public class Presenter {
     calculator = new Calculator();
   }
 
-  public int showMenu() {
-    view.showMessage("\n1. Add \n2. Subtract \n3. Multiply \n4. Divide \n5. Exit");
-    int choice = Integer.parseInt(view.readInput());
-    return choice;
-  }
-
   public void run() {
-    int choice = 0;
+    int choice;
     do {
       choice = showMenu();
-      switch (choice) {
-        case 1:
-          add();
-          break;
-        case 2:
-          // subtract();
-          break;
-        case 3:
-          // multiply();
-          break;
-        case 4:
-          // divide();
-          break;
-        case 5:
-          view.showMessage("Exiting...");
-          break;
-        default:
-          view.showMessage("Invalid choice");
+      if (choice == 5) {
+        view.showMessage("Exiting...");
+        break;
       }
-    } while (choice != 5);
+      if (choice >= 1 && choice <= 4) {
+        performOperation(choice);
+      } else {
+        view.showMessage("Invalid choice");
+      }
+    } while (true);
   }
 
-  public void add() {
-    view.showMessage("Enter first number: ");
-    int num1 = Integer.parseInt(view.readInput());
-    view.showMessage("Enter second number: ");
-    int num2 = Integer.parseInt(view.readInput());
-    int result = calculator.add(num1, num2);
+  private void performOperation(int choice) {
+    int num1 = getInput("Enter first number: ");
+    int num2 = getInput("Enter second number: ");
+
+    int result = switch (choice) {
+      case 1 -> calculator.add(num1, num2);
+      case 2 -> calculator.subtract(num1, num2);
+      // case 3 -> calculator.multiply(num1, num2);
+      // case 4 -> calculator.divide(num1, num2);
+      default -> 0; // No debería ocurrir
+    };
+
     view.showMessage("Result: " + result);
+  }
+
+  private int getInput(String message) {
+    view.showMessage(message);
+    return Integer.parseInt(view.readInput());
+  }
+
+  private int showMenu() {
+    view.showMessage("Menu:\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Exit");
+    return Integer.parseInt(view.readInput());
   }
 
   public static void main(String[] args) {
