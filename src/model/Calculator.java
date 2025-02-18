@@ -1,15 +1,15 @@
 package model;
 
 /**
- * La clase Calculator proporciona operaciones aritméticas básicas.
+ * The Calculator class provides basic arithmetic operations.
  * 
- * Métodos:
- * - add: Suma dos enteros.
- * - subtract: Resta el segundo entero del primero.
- * - multiply: Multiplica dos enteros.
- * - divide: Divide el primer entero por el segundo.
+ * Methods:
+ * - add: Adds two integers.
+ * - subtract: Subtracts the second integer from the first.
+ * - multiply: Multiplies two integers.
+ * - divide: Divides the first integer by the second.
  * 
- * Autor: Gabriel Castillo
+ * Author: Gabriel Castillo
  */
 
 public class Calculator {
