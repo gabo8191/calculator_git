@@ -13,6 +13,9 @@ public class Presenter {
     calculator = new Calculator();
   }
 
+  // Run : This method is the entry point of the application. It displays the menu
+  // and takes user input to perform the desired operation.
+
   public void run() {
     int choice;
     do {
